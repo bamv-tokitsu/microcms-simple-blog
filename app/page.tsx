@@ -1,16 +1,25 @@
-import { getList } from '@/libs/microcms';
-import { LIMIT } from '@/constants';
-import Pagination from '@/components/Pagination';
-import ArticleList from '@/components/ArticleList';
+import { getList, getTagList } from '@/libs/microcms';
+import { TOP_LIMIT, TOP_TAG_LIMIT } from '@/constants';
+import TopPage from '@/components/TopPage';
 
 export default async function Page() {
   const data = await getList({
-    limit: LIMIT,
+    limit: TOP_LIMIT,
+    orders: '-publishedAt',
+  });
+  const tags = await getTagList();
+  const tagData = await getList({
+    limit: TOP_TAG_LIMIT,
+    filters: 'tags[contains]ujk20bwojib',
+    orders: '-publishedAt',
   });
   return (
     <>
-      <ArticleList articles={data.contents} />
-      <Pagination totalCount={data.totalCount} />
+      <TopPage 
+        data={data.contents}
+        tags={tags.contents}
+        tagData={tagData.contents}
+      />
     </>
   );
 }
