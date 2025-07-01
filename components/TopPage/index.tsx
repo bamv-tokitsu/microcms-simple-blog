@@ -12,6 +12,7 @@ type Props = {
 export default function TopPage({ data, tags, tagData } : Props){
   return (
     <>
+      <a href={`/articles/`}>記事一覧</a>
       <div className={styles.toparticle}>
         <ArticleList articles={data} />
       </div>

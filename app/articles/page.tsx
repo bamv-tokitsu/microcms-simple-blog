@@ -14,22 +14,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   return {
     alternates: {
-      canonical: `/p/${params.current}`,
+      canonical: `/articles/`,
     },
   };
 }
-
-export default async function Page(props: Props) {
-  const params = await props.params;
-  const current = parseInt(params.current as string, 10);
+export default async function Page() {
   const data = await getList({
     limit: LIMIT,
-    offset: LIMIT * (current - 1),
   });
   return (
     <>
       <ArticleList articles={data.contents} />
-      <Pagination totalCount={data.totalCount} current={current} />
+      <Pagination totalCount={data.totalCount} basePath='/articles/'/>
     </>
   );
 }
