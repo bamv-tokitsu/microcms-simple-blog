@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import { Metadata } from 'next';
 import { getList } from '@/libs/microcms';
 import { LIMIT } from '@/constants';

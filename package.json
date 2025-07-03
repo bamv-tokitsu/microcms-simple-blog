@@ -37,5 +37,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.12"
   }
 }
