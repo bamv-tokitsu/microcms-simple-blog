@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
-import { getDetail, getList } from '@/libs/microcms';
+import { getDetail, getBlogIds } from '@/libs/microcms';
 import Article from '@/components/Article';
-import { notFound } from 'next/navigation';
 
 type Props = {
   params: Promise<{
@@ -13,12 +12,10 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const data = await getList();
+  const contentIds = await getBlogIds();
 
-  return data.contents.map((item: any) => ({
-    slug: item.id,
-  }));
-}
+  return contentIds.map((id: string) => ({ slug: id }));
+};
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const searchParams = await props.searchParams;
