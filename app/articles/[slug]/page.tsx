@@ -1,22 +1,22 @@
 import { Metadata } from 'next';
-import { getDetail } from '@/libs/microcms';
+import { getDetail, getBlogIds } from '@/libs/microcms';
 import Article from '@/components/Article';
 
 type Props = {
   params: Promise<{
     slug: string;
   }>;
-  searchParams: Promise<{
-    dk: string;
-  }>;
+};
+
+export async function generateStaticParams() {
+  const contentIds = await getBlogIds();
+
+  return contentIds.map((id: string) => ({ slug: id }));
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const searchParams = await props.searchParams;
   const params = await props.params;
-  const data = await getDetail(params.slug, {
-    draftKey: searchParams.dk,
-  });
+  const data = await getDetail(params.slug);
 
   return {
     title: data.title,
@@ -33,11 +33,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-  const searchParams = await props.searchParams;
   const params = await props.params;
-  const data = await getDetail(params.slug, {
-    draftKey: searchParams.dk,
-  });
+  const data = await getDetail(params.slug);
 
   return <Article data={data} />;
 }
