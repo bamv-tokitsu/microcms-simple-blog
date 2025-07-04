@@ -45,5 +45,5 @@ export default async function Page(props: Props) {
 export async function generateStaticParams() {
   const tagIds = await getTagList();
 
-  return contentIds.map((contentId) => ({tagId: contentId}))
+  return tagIds.map((contentId) => ({tagId: contentId}))
 }
