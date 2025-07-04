@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { client, getList, getTag } from '@/libs/microcms';
+import { getList, getTag, getTagList } from '@/libs/microcms';
 import { LIMIT } from '@/constants';
 import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
