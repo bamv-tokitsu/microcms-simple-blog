@@ -1,4 +1,3 @@
-export const runtime = 'edge';
 import { Metadata } from 'next';
 import { getDetail } from '@/libs/microcms';
 import Article from '@/components/Article';
