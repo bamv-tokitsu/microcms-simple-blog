@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { getDetail, getList } from '@/libs/microcms';
+import { getDetail, client } from '@/libs/microcms';
 import Article from '@/components/Article';
-import { LIMIT_SSG } from '@/constants';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: Promise<{
@@ -13,12 +13,13 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const data = await getList({
-    limit: LIMIT_SSG,
-  });
+  const data = await client.getAllContentIds({
+    endpoint: 'blog',
+  })
+  .catch(notFound);
 
-  return data.contents.map((item: any) => ({
-    slug: item.id,
+  return data.map((item: string) => ({
+    slug: item,
   }));
 }
 
