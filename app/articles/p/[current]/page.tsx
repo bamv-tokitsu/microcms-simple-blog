@@ -10,6 +10,18 @@ type Props = {
   }>;
 };
 
+export async function generateStaticParams() {
+  const { totalCount } = await getList({ limit: 0 }); // 件数だけ取得
+
+  const pageCount = Math.ceil(totalCount / LIMIT);
+
+  const params = Array.from({ length: pageCount }, (_, i) => ({
+    current: (i + 1).toString(),
+  }));
+
+  return params;
+}
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   return {
