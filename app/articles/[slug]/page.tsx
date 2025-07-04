@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
-import { getDetail } from '@/libs/microcms';
+import { getDetail, getList } from '@/libs/microcms';
 import Article from '@/components/Article';
+import { LIMIT_SSG } from '@/constants';
 
 type Props = {
   params: Promise<{
@@ -10,6 +11,16 @@ type Props = {
     dk: string;
   }>;
 };
+
+export async function generateStaticParams() {
+  const data = await getList({
+    limit: LIMIT_SSG,
+  });
+
+  return data.contents.map((item: any) => ({
+    slug: item.id,
+  }));
+}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const searchParams = await props.searchParams;
