@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getList, getTag } from '@/libs/microcms';
+import { client, getList, getTag } from '@/libs/microcms';
 import { LIMIT } from '@/constants';
 import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
@@ -40,4 +40,10 @@ export default async function Page(props: Props) {
       <Pagination totalCount={data.totalCount} basePath={`/tags/${tagId}`} />
     </>
   );
+}
+
+export async function generateStaticParams() {
+  const contentIds = await client.getAllContentIds({endpoint: 'tags'})
+
+  return contentIds.map((contentId) => ({tagId: contentId}))
 }
