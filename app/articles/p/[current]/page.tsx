@@ -41,7 +41,7 @@ export default async function Page(props: Props) {
   return (
     <>
       <ArticleList articles={data.contents} />
-      <Pagination totalCount={data.totalCount} basePath={`/articles/`} current={current}/>
+      <Pagination totalCount={data.totalCount} basePath={`/articles`} current={current}/>
     </>
   );
 }
