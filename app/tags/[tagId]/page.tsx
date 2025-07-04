@@ -43,7 +43,7 @@ export default async function Page(props: Props) {
 }
 
 export async function generateStaticParams() {
-  const contentIds = await client.getAllContentIds({endpoint: 'tags'})
+  const tagIds = await getTagList();
 
   return contentIds.map((contentId) => ({tagId: contentId}))
 }
