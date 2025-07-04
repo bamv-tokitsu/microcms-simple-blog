@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getDetail, client } from '@/libs/microcms';
+import { getDetail, getList } from '@/libs/microcms';
 import Article from '@/components/Article';
 import { notFound } from 'next/navigation';
 
@@ -13,13 +13,10 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const data = await client.getAllContentIds({
-    endpoint: 'blog',
-  })
-  .catch(notFound);
+  const data = await getList();
 
-  return data.map((item: string) => ({
-    slug: item,
+  return data.contents.map((item: any) => ({
+    slug: item.id,
   }));
 }
 
