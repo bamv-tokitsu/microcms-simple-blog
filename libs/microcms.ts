@@ -58,6 +58,17 @@ export const getList = async (queries?: MicroCMSQueries) => {
   return listData;
 };
 
+// ブログのIDを全件取得
+export const getBlogIds = async () => {
+  const contentIds = await client
+    .getAllContentIds({
+      endpoint: 'blog',
+    })
+    .catch(notFound);
+
+    return contentIds;
+};
+
 // ブログの詳細を取得
 export const getDetail = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client

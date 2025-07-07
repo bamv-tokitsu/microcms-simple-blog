@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getList, getTag } from '@/libs/microcms';
+import { getAllTagIds, getList, getTag } from '@/libs/microcms';
 import { LIMIT } from '@/constants';
 import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
@@ -11,6 +11,30 @@ type Props = {
     name: string;
   }>;
 };
+
+export async function generateStaticParams() {
+  const tagIds = await getAllTagIds()
+
+  const params = await Promise.all(
+    tagIds.map(async (contentId) => {
+        const {totalCount} = await getList({
+        limit: 0,
+        filters: 'tags[contains]' + contentId,
+      }) // 件数だけ取得
+
+      const pageCount = Math.ceil(totalCount / LIMIT)
+
+      const pageNumbers = Array.from({length: pageCount}, (_, i) => ((i + 1).toString()))
+
+      return pageNumbers.map(current => ({
+        tagId: contentId,
+        current: current,
+      }))
+    })
+  )
+
+  return params.flat()
+}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
