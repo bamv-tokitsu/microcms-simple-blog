@@ -16,7 +16,7 @@ export default function TopPage({ data, tags, tagData } : Props){
       <div className={styles.toparticle}>
         <ArticleList articles={data} />
       </div>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScnP7q8qWi1o2h9c9WBjP46J4W1c-7hmdYEG0_dbCS0Jecg_w/viewform?embedded=true" width="640" height="652" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScnP7q8qWi1o2h9c9WBjP46J4W1c-7hmdYEG0_dbCS0Jecg_w/viewform?embedded=true" width={640} height={652} frameBorder={0} marginHeight={0} marginWidth={0}>読み込んでいます…</iframe>
       <TagList tags={tags}/>
       
       <div className={styles.toptagarticle}>
