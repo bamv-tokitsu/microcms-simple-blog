@@ -1,3 +1,4 @@
+"use client";
 import ArticleList from '@/components/ArticleList';
 import TagList from '@/components/TagList';
 import { Article, Tag } from '@/libs/microcms';
@@ -79,7 +80,7 @@ export default function TopPage({ data, tags, tagData } : Props){
         style={{ display: "none" }}
         onLoad={() => {
           if (submitted.current) {
-            window.location.href = "/articles"; // thanksページのURL
+            window.location.href = "https://bamv.co.jp/"; // 仮。thanksページのURLを入れる
           }
         }}
       />
